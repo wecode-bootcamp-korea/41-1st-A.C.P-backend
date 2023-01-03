@@ -4,7 +4,6 @@ dotenv.config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-// const routes = require("./routes");
 
 const { appDataSource } = require("./models/dbconfig");
 
@@ -12,7 +11,6 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
-// app.use(routes);
 app.use(cors());
 app.use(morgan("dev"));
 
