@@ -1,3 +1,6 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const { DataSource } = require("typeorm");
 
 const appDataSource = new DataSource({
@@ -8,6 +11,15 @@ const appDataSource = new DataSource({
   password: process.env.TYPEORM_PASSWORD,
   database: process.env.TYPEORM_DATABASE,
 });
+
+appDataSource
+  .initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!");
+  })
+  .catch(() => {
+    console.log("Promise Rejected!");
+  });
 
 module.exports = {
   appDataSource,
