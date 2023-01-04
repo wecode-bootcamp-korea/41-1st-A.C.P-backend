@@ -16,10 +16,7 @@ const signIn = async (email, password) => {
 
   const userId = await userDao.getUserId(email);
 
-  const payLoad = userId;
-  const jwtToken = jwt.sign(payLoad, process.env.secretKey);
-
-  return jwtToken;
+  return jwt.sign(userId, process.env.secretKey);
 };
 
 module.exports = {

@@ -1,6 +1,6 @@
 const userService = require("../services/userService");
 
-const signin = async (req, res) => {
+const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -8,7 +8,7 @@ const signin = async (req, res) => {
       return res.status(401).json({ message: "KEY_ERROR" });
     }
 
-    jwtToken = await userService.signIn(email, password);
+    const jwtToken = await userService.signIn(email, password);
 
     return res.status(200).json({ accessToken: jwtToken });
   } catch (err) {
@@ -18,5 +18,5 @@ const signin = async (req, res) => {
 };
 
 module.exports = {
-  signin,
+  signIn,
 };

@@ -4,7 +4,7 @@ CREATE TABLE users (
   email VARCHAR(200) NOT NULL,
   password VARCHAR(200) NOT NULL,
   name VARCHAR(200) NOT NULL,
-  phoneNumber VARCHAR(200) NOT NULL,
+  phone_number VARCHAR(20) NOT NULL,
   address VARCHAR(200) NULL,
   point INT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
