@@ -4,7 +4,7 @@ CREATE TABLE potsColors (
   color VARCHAR(200) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT potsColors_coler_ukey UNIQUE (color),
+  CONSTRAINT potsColors_coler_ukey UNIQUE (color)
 );
 -- migrate:down
 DROP TABLE potsColors;

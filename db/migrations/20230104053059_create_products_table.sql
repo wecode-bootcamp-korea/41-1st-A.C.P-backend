@@ -1,3 +1,4 @@
+-- migrate:up
 CREATE TABLE products (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   plants_id INT NOT NULL,

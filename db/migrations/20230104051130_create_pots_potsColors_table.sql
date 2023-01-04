@@ -8,7 +8,7 @@ CREATE TABLE pots_potsColors (
   updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT pots_potsColors_pots_id FOREIGN KEY (pots_id) REFERENCES pots(id),
   CONSTRAINT pots_potsColors_potsColors_id FOREIGN KEY (potsColors_id) REFERENCES potsColors(id),
-  CONSTRAINT pots_potsColors_plants_id FOREIGN KEY (plants_id) REFERENCES plants(id),
+  CONSTRAINT pots_potsColors_plants_id FOREIGN KEY (plants_id) REFERENCES plants(id)
 );
 -- migrate:down
 DROP TABLE pots_potsColors;
