@@ -1,19 +1,14 @@
 const { appDataSource } = require("./dbconfig");
 
 const createUser = async (email, password, name, phoneNumber) => {
-  console.log(email);
-  console.log(password);
-  console.log(name);
-  console.log(phoneNumber);
   try {
     return await appDataSource.query(
       `INSERT INTO users(
           email,
           password,
           name,
-          phoneNumber,
-          point
-        ) VALUES (?, ?, ?, ?, 0);
+          phoneNumber
+        ) VALUES (?, ?, ?, ?);
         `,
       [email, password, name, phoneNumber]
     );

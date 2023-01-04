@@ -3,22 +3,29 @@ const bcrypt = require("bcrypt");
 const userDao = require("../models/userDao");
 
 const signUp = async (email, password, name, phoneNumber) => {
+  const pwValidation = new RegExp(
+    "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})"
+  );
+  if (!pwValidation.test(password)) {
+    const err = new Error("PASSWORD_IS_NOT_VALID");
+    err.statusCode = 409;
+    throw err;
+  }
+
+  const emailValidation = new RegExp(
+    "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+  );
+  if (!emailValidation.test(email)) {
+    const err = new Error("EMAIL_IS_NOT_VALID");
+    err.statusCode = 409;
+    throw err;
+  }
+
   const saltRounds = 12;
 
-  const makeHash = async (password, saltRounds) => {
-    return await bcrypt.hash(password, saltRounds);
-  };
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-  const hashedPassword = await makeHash(password, saltRounds);
-
-  const createUser = await userDao.createUser(
-    email,
-    hashedPassword,
-    name,
-    phoneNumber
-  );
-
-  return createUser;
+  return await userDao.createUser(email, hashedPassword, name, phoneNumber);
 };
 
 module.exports = {
