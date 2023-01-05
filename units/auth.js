@@ -26,5 +26,5 @@ const loginRequired = async (req, res) => {
   req.user = user;
 };
 module.exports = {
-  loginRequired`,
+  loginRequired,
 };

@@ -1,0 +1,11 @@
+-- migrate:up
+CREATE TABLE pots (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(200) NOT NULL,
+  price DECIMAL NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT pots_name_ukey UNIQUE (name)
+);
+-- migrate:down
+DROP TABLE pots;
