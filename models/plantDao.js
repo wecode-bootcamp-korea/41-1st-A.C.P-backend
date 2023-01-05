@@ -4,16 +4,16 @@ const plantsDetails = async (plantsId) => {
   try {
     return await appDataSource.query(
       `SELECT
-          plants.name,
-          plants.description,
-          plants.price,
-          species.name,
-          sizes.name,
-          positions.name,
-          moods.name,
-          difficulties.name,
-          plantsimg.img_url,
-          cares.name
+          plants.name as plant_name,
+          plants.description plant_description,
+          plants.price as plant_price,
+          species.name as species,
+          sizes.name as size,
+          positions.name as position,
+          moods.name as mood,
+          difficulties.name as difficulty,
+          plantsimg.imgurl as img_url,
+          cares.name as care
       FROM plants
       INNER JOIN species ON plants.species_id = species.id
       INNER JOIN sizes ON plants.sizes_id = sizes.id
