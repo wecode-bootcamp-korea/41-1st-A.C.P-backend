@@ -7,9 +7,8 @@ const createUser = async (email, password, name, phone_number) => {
           email,
           password,
           name,
-          phoneNumber,
-          point
-        ) VALUES (?, ?, ?, ?, 0);
+          phone_number
+        ) VALUES (?, ?, ?, ?);
         `,
       [email, password, name, phone_number]
     );
