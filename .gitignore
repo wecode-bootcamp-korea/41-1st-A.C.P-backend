@@ -1,6 +1,6 @@
 .env
 /node_modules/
-/schema.sql/
+/db/schema.sql/
 # Created by https://www.toptal.com/developers/gitignore/api/vim,visualstudio,linux,zsh,node,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=vim,visualstudio,linux,zsh,node,macos
 
