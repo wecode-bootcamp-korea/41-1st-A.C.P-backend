@@ -14,7 +14,7 @@ const signUp = async (email, password, name, phone_number) => {
 
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-  return await userDao.createUser(email, hashedPassword, name, phone_number);
+  return userDao.createUser(email, hashedPassword, name, phone_number);
 };
 
 module.exports = {
