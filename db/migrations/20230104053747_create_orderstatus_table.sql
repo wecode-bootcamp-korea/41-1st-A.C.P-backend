@@ -1,10 +1,10 @@
 -- migrate:up
-CREATE TABLE potsColors (
+CREATE TABLE orderstatus (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  color VARCHAR(30) NOT NULL,
+  type VARCHAR(200) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT potsColors_coler_ukey UNIQUE (color)
+  CONSTRAINT orderstatus_type_ukey UNIQUE (type)
 );
 -- migrate:down
-DROP TABLE potsColors;
+DROP TABLE orderstatus;

@@ -1,5 +1,5 @@
 -- migrate:up
-CREATE TABLE nutrientsTypes (
+CREATE TABLE nutrient_types (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(30) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -7,4 +7,4 @@ CREATE TABLE nutrientsTypes (
 );
 
 -- migrate:down
-DROP TABLE plantslikes;
+DROP TABLE nutrient_types;
