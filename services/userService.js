@@ -7,8 +7,8 @@ const {
 } = require("../utils/validation-check");
 
 const signUp = async (email, password, name, phone_number) => {
-  emailValidationCheck(email);
-  passwordValidationCheck(password);
+  await emailValidationCheck(email);
+  await passwordValidationCheck(password);
 
   const saltRounds = 12;
 
