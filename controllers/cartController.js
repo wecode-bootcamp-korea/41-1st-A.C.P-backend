@@ -16,7 +16,7 @@ const insertData = catchAsync(async (req, res) => {
     throw new Error("KEY_ERROR");
   }
 
-  const data = await cartService.insertData(
+  await cartService.insertData(
     userId,
     plantId,
     plantQuantity,
