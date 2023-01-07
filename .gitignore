@@ -1,5 +1,5 @@
 .env
 /node_modules/
-/schema.sql/
+/db/schema.sql
 /csv
 .DS_Store

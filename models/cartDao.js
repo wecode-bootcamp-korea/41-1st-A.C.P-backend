@@ -1,6 +1,6 @@
 const { appDataSource } = require("./dbconfig");
 
-const createUser = async (
+const insertData = async (
   userId,
   plantId,
   plantQuantity,
@@ -33,5 +33,5 @@ const createUser = async (
 };
 
 module.exports = {
-  createUser,
+  insertData,
 };
