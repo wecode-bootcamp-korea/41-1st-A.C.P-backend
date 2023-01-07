@@ -26,7 +26,7 @@ const insertData = catchAsync(async (req, res) => {
     nutrientQuantity
   );
 
-  res.status(201).json({ message: data });
+  res.status(201).json({ message: "upsert data to cart success!!" });
 });
 
 module.exports = {
