@@ -12,7 +12,7 @@ const insertData = catchAsync(async (req, res) => {
     nutrientQuantity,
   } = req.body;
 
-  if (!password || !email || !name || !phone_number) {
+  if (!userId) {
     throw new Error("KEY_ERROR");
   }
 
