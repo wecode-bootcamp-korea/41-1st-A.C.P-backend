@@ -1,7 +1,7 @@
 -- migrate:up
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  email VARCHAR(200) NOT NULL,
+  email VARCHAR(50) NOT NULL,
   password VARCHAR(200) NOT NULL,
   name VARCHAR(30) NOT NULL,
   phone_number VARCHAR(30) NOT NULL,

@@ -4,7 +4,6 @@ CREATE TABLE pots (
   name VARCHAR(200) NOT NULL,
   price DECIMAL(10,3) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT pots_name_ukey UNIQUE (name)
 );
 -- migrate:down
