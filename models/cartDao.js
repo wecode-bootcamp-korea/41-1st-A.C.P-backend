@@ -49,8 +49,3 @@ const insertData = async (
 module.exports = {
   insertData,
 };
-
-// INSERT INTO users (col1, col2)
-// VALUES ('val1', 'val2')
-// ON DUPLICATE KEY
-// UPDATE col1='updateval1', col2='updateval2';
