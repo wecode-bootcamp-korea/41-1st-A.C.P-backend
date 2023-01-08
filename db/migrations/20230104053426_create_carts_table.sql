@@ -1,7 +1,7 @@
 -- migrate:up
 CREATE TABLE carts (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-user_id INT NOT NULL,
+users_id INT NOT NULL,
 plant_id INT NULL,
 plant_quantity INT NULL,
 pot_id INT NULL,
