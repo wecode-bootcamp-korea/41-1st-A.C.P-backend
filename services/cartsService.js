@@ -1,22 +1,15 @@
-const { catchAsync } = require("../utils/error");
-const cartService = require("../services/cartService");
+const cartDao = require("../models/cartDao");
 
-const insertData = catchAsync(async (req, res) => {
-  const {
-    userId,
-    plantId,
-    plantQuantity,
-    potId,
-    potQuantity,
-    nutrientId,
-    nutrientQuantity,
-  } = req.body;
-
-  if (!userId) {
-    throw new Error("KEY_ERROR");
-  }
-
-  await cartService.insertData(
+const insertData = async (
+  userId,
+  plantId,
+  plantQuantity,
+  potId,
+  potQuantity,
+  nutrientId,
+  nutrientQuantity
+) => {
+  return cartDao.insertData(
     userId,
     plantId,
     plantQuantity,
@@ -25,9 +18,7 @@ const insertData = catchAsync(async (req, res) => {
     nutrientId,
     nutrientQuantity
   );
-
-  res.status(201).json({ message: "upsert data to cart success!!" });
-});
+};
 
 module.exports = {
   insertData,
