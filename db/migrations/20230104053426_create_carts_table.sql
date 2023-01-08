@@ -14,7 +14,9 @@ CREATE TABLE carts (
   CONSTRAINT carts_plant_id FOREIGN KEY (plant_id) REFERENCES plants(id),
   CONSTRAINT carts_pot_id FOREIGN KEY (pot_id) REFERENCES pots(id),
   CONSTRAINT carts_nutrient_id FOREIGN KEY (nutrient_id) REFERENCES nutrients(id),
-  CONSTRAINT carts_users_id_ukey UNIQUE (user_id)
+  CONSTRAINT carts_plant_id_ukey UNIQUE (plant_id),
+  CONSTRAINT carts_pot_id_ukey UNIQUE (pot_id),
+  CONSTRAINT carts_nutrient_id_ukey UNIQUE (nutrient_id)
 );
 -- migrate:down
 DROP TABLE carts;
