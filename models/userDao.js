@@ -14,7 +14,7 @@ const getUserId = async (email) => {
 };
 
 const getHashedPassword = async (email) => {
-  return await appDataSource.query(
+  const [result] = await appDataSource.query(
     `SELECT
           password AS hashedPassword
      FROM
@@ -24,6 +24,7 @@ const getHashedPassword = async (email) => {
     `,
     [email]
   );
+  return result;
 };
 
 const getUserEmail = async (email) => {
