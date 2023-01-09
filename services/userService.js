@@ -21,17 +21,15 @@ const signUp = async (email, password, name, phoneNumber) => {
 };
 
 const signIn = async (email, password) => {
-  const user = await userDao.getUserEmail(email);
-  if (user.length == 0) throw new Error("USER_NOT_FOUND");
+  const user = await userDao.getUserByEmail(email);
 
-  const userId = await userDao.getUserId(email);
+  if (!user) throw new Error("USER_NOT_FOUND");
 
-  const hashedPassword = await userDao.getHashedPassword(email);
-  const result = await bcrypt.compare(password, hashedPassword.hashedPassword);
+  const match = await bcrypt.compare(password, user.password);
 
-  if (!result) throw new Error("PASSWORD_DOES_NOT_MATCH");
+  if (!match) throw new Error("USERNAME_OR_PASSWORD_IS_INVALID");
 
-  return jwt.sign(userId, process.env.secretKey);
+  return jwt.sign({ userId: user.id }, process.env.secretKey);
 };
 
 module.exports = {

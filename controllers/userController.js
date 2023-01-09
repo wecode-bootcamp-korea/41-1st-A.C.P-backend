@@ -1,4 +1,4 @@
-const { catchAsync } = require("../units/error");
+const { catchAsync } = require("../utils/error");
 const userService = require("../services/userService");
 
 const signUp = catchAsync(async (req, res) => {
@@ -18,9 +18,9 @@ const signIn = catchAsync(async (req, res) => {
 
   if (!email || !password) throw new Error("KEY_ERROR");
 
-  const jwtToken = await userService.signIn(email, password);
+  const accessToken = await userService.signIn(email, password);
 
-  return res.status(200).json({ accessToken: jwtToken });
+  return res.status(200).json({ accessToken });
 });
 
 module.exports = {

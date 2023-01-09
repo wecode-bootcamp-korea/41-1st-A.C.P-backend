@@ -13,64 +13,51 @@ const createUser = async (email, password, name, phoneNumber) => {
   );
 };
 
-const getUserId = async (email) => {
-  const [userId] = await appDataSource.query(
+const getUserById = async (userId) => {
+  const [result] = await appDataSource.query(
     `SELECT
           id AS userId
         FROM
           users
         WHERE
-          email = ?;`,
-    [email]
+          id = ?;`,
+    [userId]
   );
-  return userId;
+  return result;
 };
 
-const getHashedPassword = async (email) => {
+const checkRegisteredEmail = async (email) => {
   const [result] = await appDataSource.query(
-    `SELECT
-          password AS hashedPassword
-     FROM
-          users
-     WHERE
-          email = ?;
+    `
+    SELECT EXIST (
+      SELECT id
+      FROM users
+      WHERE email = ?
+    ) as registered
     `,
     [email]
   );
-  return result;
-};
-
-const getUserEmail = async (email) => {
-  const result = await appDataSource.query(
-    `SELECT 
-          email
-     FROM 
-          users
-     WHERE 
-          email = ?;
-    `,
-    [email]
-  );
-  return result;
+  return !!parseInt(result);
 };
 
 const getUserByEmail = async (email) => {
-  const [userId] = await appDataSource.query(
+  const [user] = await appDataSource.query(
     `SELECT
-          id AS userId
+          id,
+          email,
+          password
      FROM
           users
      WHERE
           email = ?;`,
     [email]
   );
-  return userId;
+  return user;
 };
 
 module.exports = {
   createUser,
-  getHashedPassword,
-  getUserEmail,
-  getUserId,
+  getUserById,
   getUserByEmail,
+  checkRegisteredEmail,
 };
