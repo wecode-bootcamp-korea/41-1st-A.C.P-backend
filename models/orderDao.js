@@ -1,5 +1,11 @@
 const { appDataSource } = require("./dbconfig");
 
+const ORDER_STATUS = Object.freeze({
+  상품준비중: 1,
+  배송중: 2,
+  배송완료: 3,
+});
+
 const insertData = async (
   orderNumber,
   totalPrice,
@@ -17,9 +23,9 @@ const insertData = async (
            total_price,
            user_id,
            order_status_id
-         ) VALUES (?, ?, ?, 1);
+         ) VALUES (?, ?, ? , ?);
         `,
-    [orderNumber, totalPrice, userId]
+    [orderNumber, totalPrice, userId, ORDER_STATUS.상품준비중]
   );
 
   const [orderId] = await appDataSource.query(
