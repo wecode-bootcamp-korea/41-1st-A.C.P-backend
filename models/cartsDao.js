@@ -46,7 +46,7 @@ const deleteCart = catchAsync(async (req, res) => {
   throw new Error(401, "DELETE_NOT_FUNCTION");
 });
 
-const deleteCartList = catchAsync(async (req, res) => {
+const deleteCartList = async (req, res) => {
   await appDataSource.query(
     `DELETE FROM
             carts
@@ -60,7 +60,7 @@ const deleteCartList = catchAsync(async (req, res) => {
         `,
     [plantId, plantQuantity, potId, potQuantity, nutrientId, nutrientQuantity]
   );
-});
+};
 module.exports = {
   getCartList,
   deleteCartList,
