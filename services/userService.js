@@ -6,7 +6,7 @@ const {
   passwordValidationCheck,
 } = require("../utils/validation-check");
 
-const signUp = async (email, password, name, phone_number) => {
+const signUp = async (email, password, name, phoneNumber) => {
   await emailValidationCheck(email);
   await passwordValidationCheck(password);
 
@@ -14,7 +14,7 @@ const signUp = async (email, password, name, phone_number) => {
 
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-  return userDao.createUser(email, hashedPassword, name, phone_number);
+  return userDao.createUser(email, hashedPassword, name, phoneNumber);
 };
 
 module.exports = {

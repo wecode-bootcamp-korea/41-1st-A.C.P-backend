@@ -1,6 +1,6 @@
 const { appDataSource } = require("./dbconfig");
 
-const createUser = async (email, password, name, phone_number) => {
+const createUser = async (email, password, name, phoneNumber) => {
   return appDataSource.query(
     `INSERT INTO users(
           email,
@@ -9,7 +9,7 @@ const createUser = async (email, password, name, phone_number) => {
           phone_number
         ) VALUES (?, ?, ?, ?);
         `,
-    [email, password, name, phone_number]
+    [email, password, name, phoneNumber]
   );
 };
 
