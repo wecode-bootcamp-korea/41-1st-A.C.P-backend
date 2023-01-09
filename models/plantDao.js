@@ -1,6 +1,6 @@
 const { appDataSource } = require("./dbconfig");
 
-const plantsDetails = async (plantsId) => {
+const getPlantInfo = async (plantsId) => {
   return appDataSource.query(
     `SELECT 
       plants.id as plant_id,
@@ -30,5 +30,5 @@ const plantsDetails = async (plantsId) => {
 };
 
 module.exports = {
-  plantsDetails,
+  getPlantInfo,
 };

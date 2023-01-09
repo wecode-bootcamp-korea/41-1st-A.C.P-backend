@@ -2,17 +2,17 @@ const { catchAsync } = require("../utils/error");
 
 const plantService = require("../services/plantService");
 
-const plantsDetails = catchAsync(async (req, res) => {
+const getPlantInfo = catchAsync(async (req, res) => {
   const { plantId } = req.params;
   if (!plantId) {
     throw new Error("KEY_ERROR");
   }
 
-  const plantsDetails = await plantService.plantsDetails(plantId);
+  const PlantInfo = await plantService.getPlantInfo(plantId);
 
-  res.status(201).json({ message: plantsDetails });
+  return res.status(200).json({ message: PlantInfo });
 });
 
 module.exports = {
-  plantsDetails,
+  getPlantInfo,
 };

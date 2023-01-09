@@ -1,11 +1,11 @@
 const plantDao = require("../models/plantDao");
 
-const plantsDetails = async (plantId) => {
-  const plantsDetails = await plantDao.plantsDetails(plantId);
+const getPlantInfo = async (plantId) => {
+  const PlantInfo = await plantDao.getPlantInfo(plantId);
 
-  return plantsDetails;
+  return PlantInfo;
 };
 
 module.exports = {
-  plantsDetails,
+  getPlantInfo,
 };
