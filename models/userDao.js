@@ -1,5 +1,18 @@
 const { appDataSource } = require("./dbconfig");
 
+const createUser = async (email, password, name, phoneNumber) => {
+  return appDataSource.query(
+    `INSERT INTO users(
+          email,
+          password,
+          name,
+          phone_number
+        ) VALUES (?, ?, ?, ?);
+        `,
+    [email, password, name, phoneNumber]
+  );
+};
+
 const getUserId = async (email) => {
   const [userId] = await appDataSource.query(
     `SELECT
@@ -55,6 +68,7 @@ const getUserByEmail = async (email) => {
 };
 
 module.exports = {
+  createUser,
   getHashedPassword,
   getUserEmail,
   getUserId,
