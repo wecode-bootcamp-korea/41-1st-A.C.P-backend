@@ -8,9 +8,9 @@ const getPlantInfo = catchAsync(async (req, res) => {
     throw new Error("KEY_ERROR");
   }
 
-  const PlantInfo = await plantService.getPlantInfo(plantId);
+  const plantInfo = await plantService.getPlantInfo(plantId);
 
-  return res.status(200).json({ message: PlantInfo });
+  return res.status(200).json({ message: plantInfo });
 });
 
 module.exports = {
