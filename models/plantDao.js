@@ -15,13 +15,13 @@ const getPlantInfo = async (plantsId) => {
       cares.name as care,
       JSON_ARRAYAGG(JSON_OBJECT("img_id",plant_images.id,"img_url",plant_images.img_url))as images
     FROM plants
-    INNER JOIN species ON plants.species_id = species.id
-    INNER JOIN sizes ON plants.size_id = sizes.id
-    INNER JOIN positions ON plants.position_id = positions.id
-    INNER JOIN moods ON plants.mood_id = moods.id
-    INNER JOIN difficulties ON plants.difficulty_id = difficulties.id
-    INNER JOIN cares ON plants.care_id = cares.id
-    LEFT JOIN plant_images ON plant_images.plant_id=plants.id
+    JOIN species ON plants.species_id = species.id
+    JOIN sizes ON plants.size_id = sizes.id
+    JOIN positions ON plants.position_id = positions.id
+    JOIN moods ON plants.mood_id = moods.id
+    JOIN difficulties ON plants.difficulty_id = difficulties.id
+    JOIN cares ON plants.care_id = cares.id
+    JOIN plant_images ON plant_images.plant_id=plants.id
     where plants.id= ?
     GROUP BY plants.id;
       `,
