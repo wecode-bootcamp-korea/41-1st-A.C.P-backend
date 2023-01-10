@@ -1,10 +1,9 @@
 const { appDataSource } = require("./dbconfig");
 const queryBuilder = (sizes, positions, moods, difficulties) => {
-  // 각 값들을 controllers에서 {}구조분해할당으로 받아야함.
   let andcaulse = "";
 
   if (sizes) {
-    andcaulse = andcaulse + `AND plants.size_id IN (${sizes.toString()})\n`; //sizes가 배열로 들어오기때문에 후에 수정 필요.
+    andcaulse = andcaulse + `AND plants.size_id IN (${sizes.toString()})\n`;
   }
 
   if (positions) {
