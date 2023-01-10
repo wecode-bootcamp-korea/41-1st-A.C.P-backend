@@ -9,8 +9,9 @@ const getPlantInfo = catchAsync(async (req, res) => {
   }
 
   const plantInfo = await plantService.getPlantInfo(plantId);
+  console.log(plantInfo);
 
-  return res.status(200).json({ message: plantInfo });
+  res.status(200).json(plantInfo);
 });
 
 module.exports = {
