@@ -11,7 +11,6 @@ const insertData = async (
   nutrientId,
   nutrientQuantity
 ) => {
-  console.log("실행확인!!!!");
   return orderDao.insertData(
     orderNumber,
     totalPrice,

@@ -5,7 +5,6 @@ const insertData = catchAsync(async (req, res) => {
   const {
     orderNumber,
     totalPrice,
-    userId,
     plantId,
     plantQuantity,
     potId,
@@ -13,6 +12,8 @@ const insertData = catchAsync(async (req, res) => {
     nutrientId,
     nutrientQuantity,
   } = req.body;
+
+  const userId = req.user.userId;
 
   if (!orderNumber || !totalPrice || !userId) {
     throw new Error("KEY_ERROR");
