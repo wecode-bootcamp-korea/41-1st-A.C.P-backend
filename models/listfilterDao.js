@@ -20,6 +20,10 @@ const queryBuilder = (sizes, positions, moods, difficulties) => {
       andcaulse + `AND plants.difficulty_id IN (${difficulties.toString()})\n`;
   }
 
+  if (!sizes && !positions && !moods && !difficulties) {
+    andcaulse += ";";
+  }
+
   return andcaulse;
 };
 
