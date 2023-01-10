@@ -24,4 +24,9 @@ const loginRequired = async (req, res) => {
   }
 
   req.user = user;
+
+  next();
+};
+module.exports = {
+  loginRequired,
 };

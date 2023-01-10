@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const routes = require("./routes");
 
 const { appDataSource } = require("./models/dbconfig");
-const { globalErrorHandler } = require("./units/error");
+const { globalErrorHandler } = require("./utils/error");
 
 const app = express();
 const PORT = process.env.PORT;

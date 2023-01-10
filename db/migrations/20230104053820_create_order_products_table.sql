@@ -4,7 +4,7 @@ CREATE TABLE order_products (
   order_id INT NOT NULL,
   plant_id INT NULL,
   plant_quantity INT NULL,
-  pot_id INT NULL,
+  pots_pot_color_id INT NULL,
   pot_quantity INT NULL,
   nutrient_id INT NULL,
   nutrient_quantity INT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE order_products (
   updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT order_products_order_id FOREIGN KEY (order_id) REFERENCES orders(id),
   CONSTRAINT order_products_plant_id FOREIGN KEY (plant_id) REFERENCES plants(id),
-  CONSTRAINT order_products_pot_id FOREIGN KEY (pot_id) REFERENCES pots(id),
+  CONSTRAINT order_products_pots_pot_color_id FOREIGN KEY (pots_pot_color_id) REFERENCES pots_pot_colors(id),
   CONSTRAINT order_products_nutrient_id FOREIGN KEY (nutrient_id) REFERENCES nutrients(id)
   
 );
