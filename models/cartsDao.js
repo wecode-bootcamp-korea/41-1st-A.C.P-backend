@@ -35,33 +35,56 @@ const getCartList = async (
   );
 };
 
-const deleteCart = catchAsync(async (req, res) => {
+const deleteCart = async (req, res) => {
   await appDataSource.query(
     `DELETE FROM
             carts
         WHERE
-            carts_id = ?
+            carts.id = ?;
         `
   );
   throw new Error(401, "DELETE_NOT_FUNCTION");
-});
+};
 
 const deleteCartList = async (req, res) => {
   await appDataSource.query(
-    `DELETE FROM
-            carts
-        WHERE
-            plant_id = ?,
-            plant_quantity = ?,
-            pot_id = ?,
-            pot_quantity = ?,
-            nutrient_id = ?,
-            nutrient_quantity = ?
+    `INSERT INTO
+          carts(
+            user_id,
+            plant_id,
+            plant_quantity,
+            pot_id,
+            pot_quantity,
+            nutrient_id,
+            nutrient_quantity
+    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+    ON DUPLICATE KEY UPDATE
+    
         `,
     [plantId, plantQuantity, potId, potQuantity, nutrientId, nutrientQuantity]
   );
 };
 module.exports = {
   getCartList,
+  deleteCart,
   deleteCartList,
 };
+
+`INSERT INTO carts(
+  user_id,
+  plant_id,
+  plant_quantity,
+  pot_id,
+  pot_quantity,
+  nutrient_id,
+  nutrient_quantity
+) VALUES (?, ?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY
+UPDATE 
+plant_id = ?,
+plant_quantity = ?,
+pot_id = ?,
+pot_quantity = ?,
+nutrient_id = ?,
+nutrient_quantity = ?;
+`;
