@@ -16,7 +16,7 @@ const listfilterData = catchAsync(async (req, res) => {
     difficulties
   );
 
-  return res.status(200).json({ message: data });
+  return res.status(200).json(data);
 });
 
 module.exports = {
