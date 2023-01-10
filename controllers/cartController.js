@@ -3,7 +3,6 @@ const cartService = require("../services/cartService");
 
 const insertData = catchAsync(async (req, res) => {
   const {
-    userId,
     plantId,
     plantQuantity,
     potId,
@@ -17,7 +16,7 @@ const insertData = catchAsync(async (req, res) => {
   }
 
   await cartService.insertData(
-    userId,
+    req.user.id,
     plantId,
     plantQuantity,
     potId,
