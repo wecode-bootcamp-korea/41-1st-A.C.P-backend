@@ -11,12 +11,14 @@ const insertData = catchAsync(async (req, res) => {
     nutrientQuantity,
   } = req.body;
 
+  const userId = req.user.userId;
+
   if (!userId) {
     throw new Error("KEY_ERROR");
   }
 
   await cartService.insertData(
-    req.user.id,
+    userId,
     plantId,
     plantQuantity,
     potId,

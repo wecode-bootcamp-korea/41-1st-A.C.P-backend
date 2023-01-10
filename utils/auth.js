@@ -1,8 +1,8 @@
 const jwt = require("jsonWebtoken");
 
-const { userService } = require("../services/userService");
+const userDao = require("../models/userDao");
 
-const loginRequired = async (req, res) => {
+const loginRequired = async (req, res, next) => {
   const accessToken = req.headers.authorization;
 
   if (!accessToken) {
@@ -11,16 +11,19 @@ const loginRequired = async (req, res) => {
 
     return res.status(error.statusCode).json({ message: error.message });
   }
+  console.log(accessToken);
 
   const decoded = await jwt.verify(accessToken, process.env.JWT_SECRET);
 
-  const user = await userService.getUserById(decoded.id);
+  console.log(decoded);
+
+  const user = await userDao.getUserById(decoded.userId);
 
   if (!user) {
-    const error = new Error("USER_DOES_NOT_MATCH");
+    const err = new Error("USER_DOES_NOT_MATCH");
     err.statusCode = 401;
 
-    return res.status(error.statusCode).json({ message: error.message });
+    return res.status(err.statusCode).json({ message: err.message });
   }
 
   req.user = user;
