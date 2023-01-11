@@ -4,7 +4,7 @@ const { loginRequired } = require("../utils/auth");
 
 const router = express.Router();
 
-router.post("", loginRequired, cartController.insertData);
+router.post("", loginRequired, cartController.createCart);
 
 module.exports = {
   router,

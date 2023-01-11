@@ -1,6 +1,6 @@
 const cartDao = require("../models/cartDao");
 
-const insertData = async (
+const createCart = async (
   userId,
   plantId,
   plantQuantity,
@@ -9,7 +9,7 @@ const insertData = async (
   nutrientId,
   nutrientQuantity
 ) => {
-  return cartDao.insertData(
+  return cartDao.createCart(
     userId,
     plantId,
     plantQuantity,
@@ -21,5 +21,5 @@ const insertData = async (
 };
 
 module.exports = {
-  insertData,
+  createCart,
 };

@@ -6,16 +6,21 @@ const loginRequired = async (req, res, next) => {
   const accessToken = req.headers.authorization;
 
   if (!accessToken) {
-    const error = new Error("NEED_ACCESS_TOKEN");
+    const err = new Error("NEED_ACCESS_TOKEN");
     err.statusCode = 401;
 
-    return res.status(error.statusCode).json({ message: error.message });
+    return res.status(err.statusCode).json({ message: err.message });
   }
-  console.log(accessToken);
 
-  const decoded = await jwt.verify(accessToken, process.env.JWT_SECRET);
+  let decoded;
+  try {
+    decoded = await jwt.verify(accessToken, process.env.JWT_SECRET);
+  } catch {
+    const err = new Error("INVALID TOKEN");
+    err.statusCode = 401;
 
-  console.log(decoded);
+    return res.status(err.statusCode).json({ message: err.message });
+  }
 
   const user = await userDao.getUserById(decoded.userId);
 

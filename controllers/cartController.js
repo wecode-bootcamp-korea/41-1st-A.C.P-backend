@@ -1,7 +1,7 @@
 const { catchAsync } = require("../utils/error");
 const cartService = require("../services/cartService");
 
-const insertData = catchAsync(async (req, res) => {
+const createCart = catchAsync(async (req, res) => {
   const {
     plantId,
     plantQuantity,
@@ -13,11 +13,7 @@ const insertData = catchAsync(async (req, res) => {
 
   const userId = req.user.userId;
 
-  if (!userId) {
-    throw new Error("KEY_ERROR");
-  }
-
-  await cartService.insertData(
+  await cartService.createCart(
     userId,
     plantId,
     plantQuantity,
@@ -31,5 +27,5 @@ const insertData = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  insertData,
+  createCart,
 };
