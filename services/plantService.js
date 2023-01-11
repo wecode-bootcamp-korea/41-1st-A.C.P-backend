@@ -1,21 +1,25 @@
 const plantDao = require("../models/plantDao");
 
-const listfilterData = async (
+const plantListFilterData = async (
   species,
   sizes,
   positions,
   moods,
-  difficulties
+  difficulties,
+  offset,
+  limit
 ) => {
-  return plantDao.listfilterData(
+  return plantDao.plantListFilterData(
     species,
     sizes,
     positions,
     moods,
-    difficulties
+    difficulties,
+    offset,
+    limit
   );
 };
 
 module.exports = {
-  listfilterData,
+  plantListFilterData,
 };
