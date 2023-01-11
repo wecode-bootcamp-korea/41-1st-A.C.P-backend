@@ -1,4 +1,4 @@
-const { catchAsync } = require("../units/error");
+const { catchAsync } = require("../utils/error");
 const cartService = require("../services/cartsService");
 
 const getCartList = catchAsync(async (req, res) => {
