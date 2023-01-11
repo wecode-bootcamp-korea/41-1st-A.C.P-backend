@@ -1,11 +1,12 @@
 -- migrate:up
-CREATE TABLE pots (
+CREATE TABLE pots_pot_colors (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(200) NOT NULL,
-  description VARCHAR(1000) NOT NULL,
-  price DECIMAL(10,3) NOT NULL,
-  img_url VARCHAR(1000) NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  CONSTRAINT pots_name_ukey UNIQUE (name)
+  pot_id INT NOT NULL,
+  pot_color_id INT NOT NULL,
+  plant_id INT NOT NULL,
+  CONSTRAINT pots_pot_colors_pot_id FOREIGN KEY (pot_id) REFERENCES pots(id),
+  CONSTRAINT pots_pot_colors_pot_color_id FOREIGN KEY (pot_color_id) REFERENCES pot_colors(id),
+  CONSTRAINT pots_pot_colors_plant_id FOREIGN KEY (plant_id) REFERENCES plants(id)
+);
 -- migrate:down
 DROP TABLE pots_pot_colors;

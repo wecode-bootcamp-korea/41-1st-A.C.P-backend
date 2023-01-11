@@ -2,14 +2,14 @@ const { catchAsync } = require("../utils/error");
 
 const potsService = require("../services/potsService");
 
-const potsDetails = catchAsync(async (req, res) => {
+const getPotList = catchAsync(async (req, res) => {
   const { potsId } = req.params;
   if (!potsId) throw new Error("KEY_ERROR");
 
-  const potsDetails = await potsService.potsDetails(potsId);
-  res.status(201).json({ message: potsDetails });
+  const getPotList = await potsService.getPotList(potsId);
+  return res.status(201).json({ data: getPotList });
 });
 
 module.exports = {
-  potsDetails,
+  getPotList,
 };

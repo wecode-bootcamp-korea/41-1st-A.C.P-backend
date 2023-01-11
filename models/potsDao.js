@@ -1,25 +1,24 @@
 const { appDataSource } = require("./dbconfig");
 
-const potsDetails = async (potsId) => {
-  return await appDataSource.query(
+const getPotList = async (potsId) => {
+  const result = await appDataSource.query(
     `SELECT
-                pots.name,
-                pots.price,
-                pots_potsColors.potsColor_id,
-                potsing.img_url,
-                potsSizes.size
-            FROM
-                pots
-            LEFT JOIN pots_potsColors ON pots.potsColors.id = pots.id,
-            LEFT JOIN pots_Colors ON potsColors.id = pots_potsColors.potsColors_id,
-            LEFT JOIN potsimg ON pots.id = potsimg.pots_id,
-            LEFT JOIN potsSizes ON pots.potsSizes_id = potsSizes.id
-            LEFT WHERE pots.id = ?;
-            `,
+        pots.name,
+        pot_sizes.name AS size,
+        pot_colors.color,
+        pots.price,
+        pots.img_url
+    FROM pots_pot_colors
+    LEFT JOIN pots ON pots_pot_colors.id = pots.id
+    LEFT JOIN pot_sizes ON pots.pot_size_id = pot_sizes.id
+    LEFT JOIN pot_colors ON pot_colors.id = pots_pot_colors.pot_color_id
+    LEFT JOIN pot_images ON pots_pot_colors.id = pot_images.pot_id
+    WHERE pots.id = ?;`,
     [potsId]
   );
+  return result;
 };
 
 module.exports = {
-  potsDetails,
+  getPotList,
 };

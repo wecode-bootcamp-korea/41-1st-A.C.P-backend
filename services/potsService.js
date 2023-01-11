@@ -1,9 +1,9 @@
 const potsDao = require("../models/potsDao");
 
-const potsDetails = async (postId) => {
-  return potsDao.potsDetails(potsId);
+const getPotList = async (potsId) => {
+  return await potsDao.getPotList(potsId);
 };
 
 module.exports = {
-  potsDetails,
+  getPotList,
 };
