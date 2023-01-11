@@ -4,7 +4,7 @@ const { loginRequired } = require("../utils/auth");
 
 const router = express.Router();
 
-router.post("", loginRequired, orderController.insertData);
+router.post("", loginRequired, orderController.createOrder);
 
 module.exports = {
   router,

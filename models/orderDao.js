@@ -6,7 +6,7 @@ const ORDER_STATUS = Object.freeze({
   배송완료: 3,
 });
 
-const insertData = async (
+const createOrder = async (
   orderNumber,
   totalPrice,
   userId,
@@ -67,5 +67,5 @@ const insertData = async (
 };
 
 module.exports = {
-  insertData,
+  createOrder,
 };

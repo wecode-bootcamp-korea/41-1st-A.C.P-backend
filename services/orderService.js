@@ -1,7 +1,8 @@
 const orderDao = require("../models/orderDao");
+const uuid = require("uuid");
+const orderNumber = uuid.v4();
 
-const insertData = async (
-  orderNumber,
+const createOrder = async (
   totalPrice,
   userId,
   plantId,
@@ -11,7 +12,7 @@ const insertData = async (
   nutrientId,
   nutrientQuantity
 ) => {
-  return orderDao.insertData(
+  return orderDao.createOrder(
     orderNumber,
     totalPrice,
     userId,
@@ -25,5 +26,5 @@ const insertData = async (
 };
 
 module.exports = {
-  insertData,
+  createOrder,
 };
