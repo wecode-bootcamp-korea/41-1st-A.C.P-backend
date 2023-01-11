@@ -1,7 +1,7 @@
 const { appDataSource } = require("./dbconfig");
 
 const getPlantInfo = async (plantsId) => {
-  return appDataSource.query(
+  const [plantInfodata] = await appDataSource.query(
     `SELECT 
       plants.id as plant_id,
       plants.name as plant_name,
@@ -27,6 +27,7 @@ const getPlantInfo = async (plantsId) => {
       `,
     [plantsId]
   );
+  return plantInfodata;
 };
 
 module.exports = {
