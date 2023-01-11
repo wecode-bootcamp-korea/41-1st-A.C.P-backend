@@ -1,9 +1,9 @@
 const nutrientDao = require("../models/nutrientDao");
 
-const getFilterNutrientData = async (type) => {
-  return nutrientDao.getFilterNutrientData(type);
+const nutrientsListFilterData = async (type, offset, limit) => {
+  return nutrientDao.nutrientsListFilterData(type, offset, limit);
 };
 
 module.exports = {
-  getFilterNutrientData,
+  nutrientsListFilterData,
 };

@@ -2,14 +2,18 @@ const { catchAsync } = require("../utils/error");
 
 const nutrientService = require("../services/nutrientService");
 
-const getFilterNutrientData = catchAsync(async (req, res) => {
-  const { type } = req.query;
+const nutrientsListFilterData = catchAsync(async (req, res) => {
+  const { type, offset, limit } = req.query;
 
-  const FilterNutrientData = await nutrientService.getFilterNutrientData(type);
+  const nutrientsListFilterData = await nutrientService.nutrientsListFilterData(
+    type,
+    offset,
+    limit
+  );
 
-  res.status(200).json(FilterNutrientData);
+  res.status(200).json(nutrientsListFilterData);
 });
 
 module.exports = {
-  getFilterNutrientData,
+  nutrientsListFilterData,
 };

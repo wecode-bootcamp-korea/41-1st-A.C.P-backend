@@ -3,7 +3,7 @@ const nutrientController = require("../controllers/nutrientController");
 
 const router = express.Router();
 
-router.post("", nutrientController.getFilterNutrientData);
+router.post("", nutrientController.nutrientsListFilterData);
 
 module.exports = {
   router,
