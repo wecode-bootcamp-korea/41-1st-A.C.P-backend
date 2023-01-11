@@ -1,9 +1,9 @@
 const express = require("express");
-const potsController = require("../controllers/potsController");
+const potController = require("../controllers/potController");
 
 const router = express.Router();
 
-router.post("/:potId", potsController.getPotInfo);
+router.post("/:potId", potController.getPotInfo);
 
 module.exports = {
   router,
