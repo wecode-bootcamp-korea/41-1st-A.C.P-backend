@@ -1,10 +1,10 @@
 const { catchAsync } = require("../utils/error");
-const listfilterService = require("../services/listfilterService");
+const plantService = require("../services/plantService");
 
 const listfilterData = catchAsync(async (req, res) => {
   const { species, sizes, positions, moods, difficulties } = req.query;
 
-  const data = await listfilterService.listfilterData(
+  const data = await plantService.listfilterData(
     species,
     sizes,
     positions,

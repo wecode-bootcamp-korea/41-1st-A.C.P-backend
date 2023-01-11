@@ -1,4 +1,4 @@
-const listfilterDao = require("../models/listfilterDao");
+const plantDao = require("../models/plantDao");
 
 const listfilterData = async (
   species,
@@ -7,7 +7,7 @@ const listfilterData = async (
   moods,
   difficulties
 ) => {
-  return listfilterDao.listfilterData(
+  return plantDao.listfilterData(
     species,
     sizes,
     positions,

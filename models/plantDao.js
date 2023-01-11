@@ -1,30 +1,35 @@
 const { appDataSource } = require("./dbconfig");
-const queryBuilder = (sizes, positions, moods, difficulties) => {
-  let andcaulse = "";
+const queryBuilder = (species, sizes, positions, moods, difficulties) => {
+  let andclause = "";
+
+  if (species) {
+    andclause =
+      andclause + `WHERE plants.species_id = (${species.toString()})\n`;
+  }
 
   if (sizes) {
-    andcaulse = andcaulse + `AND plants.size_id IN (${sizes.toString()})\n`;
+    andclause = andclause + `AND plants.size_id IN (${sizes.toString()})\n`;
   }
 
   if (positions) {
-    andcaulse =
-      andcaulse + `AND plants.position_id IN (${positions.toString()})\n`;
+    andclause =
+      andclause + `AND plants.position_id IN (${positions.toString()})\n`;
   }
 
   if (moods) {
-    andcaulse = andcaulse + `AND plants.mood_id IN (${moods.toString()})\n`;
+    andclause = andclause + `AND plants.mood_id IN (${moods.toString()})\n`;
   }
 
   if (difficulties) {
-    andcaulse =
-      andcaulse + `AND plants.difficulty_id IN (${difficulties.toString()})\n`;
+    andclause =
+      andclause + `AND plants.difficulty_id IN (${difficulties.toString()})\n`;
   }
 
   if (!sizes && !positions && !moods && !difficulties) {
-    andcaulse += ";";
+    andclause += ";";
   }
 
-  return andcaulse;
+  return andclause;
 };
 
 const listfilterData = async (
@@ -34,7 +39,13 @@ const listfilterData = async (
   moods,
   difficulties
 ) => {
-  const andquery = await queryBuilder(sizes, positions, moods, difficulties);
+  const andquery = await queryBuilder(
+    species,
+    sizes,
+    positions,
+    moods,
+    difficulties
+  );
 
   const data = await appDataSource.query(
     `SELECT
@@ -55,12 +66,9 @@ const listfilterData = async (
     JOIN moods ON plants.mood_id = moods.id
     JOIN difficulties ON plants.difficulty_id = difficulties.id
     JOIN cares ON plants.care_id = cares.id
-    WHERE
-      plants.species_id = ?
       ${andquery}
       ;
-        `,
-    [species]
+        `
   );
   return data;
 };

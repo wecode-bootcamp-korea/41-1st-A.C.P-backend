@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const userRouter = require("./userRouter");
-const filterRouter = require("./listfilterRouter");
+const plantRouter = require("./plantRouter");
 
 router.use("/users", userRouter.router);
-router.use("/lists", filterRouter.router);
+router.use("/plants", plantRouter.router);
 
 module.exports = router;
