@@ -1,5 +1,7 @@
-const orderDao = require("../models/orderDao");
 const uuid = require("uuid");
+
+const orderDao = require("../models/orderDao");
+const userDao = require("../models/userDao");
 
 const createOrder = async (
   totalPrice,
@@ -11,6 +13,10 @@ const createOrder = async (
   nutrientId,
   nutrientQuantity
 ) => {
+  const userPoint = await userDao.getUserById(userId).point;
+
+  if (userPoint < totalPrice) throw new Error("NOT_ENOUGH_POINT");
+
   const orderNumber = uuid.v4();
 
   return orderDao.createOrder(

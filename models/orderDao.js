@@ -34,7 +34,9 @@ const createOrder = async (
     );
 
     const [orderId] = await queryRunner.query(
-      `SELECT orders.id
+      `SELECT
+      orders.id,
+      orders.total_price
       FROM orders 
       WHERE order_number = ?;
       `,
@@ -68,6 +70,15 @@ const createOrder = async (
       WHERE user_id = ?;
       `,
       [userId]
+    );
+
+    await queryRunner.query(
+      `UPDATE
+      users
+      SET point = point - ?
+      WHERE id = ?
+      `,
+      [totalPrice, userId]
     );
 
     await queryRunner.commitTransaction();
