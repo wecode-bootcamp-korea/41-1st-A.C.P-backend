@@ -1,9 +1,9 @@
 const potDao = require("../models/potDao");
 
-const listfilterData = async (size, color) => {
-  return potDao.listfilterData(size, color);
+const potsListFilterData = async (size, color, offset, limit) => {
+  return potDao.potsListFilterData(size, color, offset, limit);
 };
 
 module.exports = {
-  listfilterData,
+  potsListFilterData,
 };

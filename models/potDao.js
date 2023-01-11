@@ -1,5 +1,5 @@
 const { appDataSource } = require("./dbconfig");
-const queryBuilder = (size, color) => {
+const queryBuilder = (size, color, offset, limit) => {
   let andclause = "WHERE ";
 
   if (size) {
@@ -14,34 +14,59 @@ const queryBuilder = (size, color) => {
     andclause = andclause + `pot_colors.id IN (${color.toString()})\n`;
   }
 
-  if (!size && !color) {
+  if (limit) {
+    andclause = andclause + `LIMIT ${limit}\n`;
+  }
+
+  if (offset) {
+    andclause = andclause + `OFFSET ${offset}\n`;
+  }
+
+  if (!size && !color && !limit && !offset) {
     andclause = ";";
   }
 
   return andclause;
 };
 
-const listfilterData = async (size, color) => {
-  const andquery = await queryBuilder(size, color);
+const potsListFilterData = async (size, color, offset, limit) => {
+  const andquery = await queryBuilder(size, color, offset, limit);
 
-  const data = await appDataSource.query(
-    `SELECT
-      pots.id as pot_id,
-      pot_images.img_url,
-      pots.name as pot_name,
-      pots.price as pot_price
-    FROM pots_pot_colors
-    INNER JOIN pots ON pots_pot_colors.id = pots.id
-    INNER JOIN pot_sizes ON pots.pot_size_id = pot_sizes.id
-    INNER JOIN pot_colors ON pot_colors.id = pots_pot_colors.pot_color_id
-    INNER JOIN pot_images ON pots_pot_colors.id = pot_images.pot_id
-      ${andquery}
-    `
-  );
-  return data;
+  const queryRunner = appDataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
+
+  try {
+    const potsList = await queryRunner.query(
+      `SELECT
+        pots.id as pot_id,
+        pot_images.img_url,
+        pots.name as pot_name,
+        pots.price as pot_price
+      FROM pots_pot_colors
+      INNER JOIN pots ON pots_pot_colors.id = pots.id
+      INNER JOIN pot_sizes ON pots.pot_size_id = pot_sizes.id
+      INNER JOIN pot_colors ON pot_colors.id = pots_pot_colors.pot_color_id
+      INNER JOIN pot_images ON pots_pot_colors.id = pot_images.pot_id
+        ${andquery}
+      ;
+      `
+    );
+
+    const [totalCount] = await queryRunner.query(
+      `SELECT FOUND_ROWS() AS totalCount`
+    );
+
+    return { potsList, totalCount };
+  } catch (err) {
+    console.log(err);
+    await queryRunner.rollbackTransaction();
+  } finally {
+    await queryRunner.release();
+  }
 };
 
 module.exports = {
-  listfilterData,
+  potsListFilterData,
 };
 ``;

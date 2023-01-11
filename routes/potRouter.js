@@ -3,7 +3,7 @@ const potController = require("../controllers/potController");
 
 const router = express.Router();
 
-router.post("", potController.listfilterData);
+router.post("", potController.potsListFilterData);
 
 module.exports = {
   router,
