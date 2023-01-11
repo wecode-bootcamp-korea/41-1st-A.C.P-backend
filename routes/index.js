@@ -7,6 +7,6 @@ const potRouter = require("./potRouter");
 
 router.use("/users", userRouter.router);
 router.use("/plants", plantRouter.router);
-router.use("/plants", potRouter.router);
+router.use("/pots", potRouter.router);
 
 module.exports = router;
