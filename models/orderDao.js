@@ -17,53 +17,66 @@ const createOrder = async (
   nutrientId,
   nutrientQuantity
 ) => {
-  await appDataSource.query(
-    `INSERT INTO orders (
-           order_number,
-           total_price,
-           user_id,
-           order_status_id
-         ) VALUES (?, ?, ? , ?);
-        `,
-    [orderNumber, totalPrice, userId, ORDER_STATUS.상품준비중]
-  );
+  const queryRunner = appDataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
 
-  const [orderId] = await appDataSource.query(
-    `SELECT orders.id
-    FROM orders 
-    WHERE order_number = ?;
-    `,
-    [orderNumber]
-  );
+  try {
+    await queryRunner.query(
+      `INSERT INTO orders (
+        order_number,
+        total_price,
+        user_id,
+        order_status_id
+      ) VALUES (?, ?, ?, ?);
+     `,
+      [orderNumber, totalPrice, userId, ORDER_STATUS.상품준비중]
+    );
 
-  await appDataSource.query(
-    `INSERT INTO order_products (
-      plant_id,
-      plant_quantity,
-      pot_id,
-      pot_quantity,
-      nutrient_id,
-      nutrient_quantity,
-      order_id
-    ) VALUES (?, ?, ?, ?, ?, ?, ?);
-    `,
-    [
-      plantId,
-      plantQuantity,
-      potId,
-      potQuantity,
-      nutrientId,
-      nutrientQuantity,
-      orderId.id,
-    ]
-  );
+    const [orderId] = await queryRunner.query(
+      `SELECT orders.id
+      FROM orders 
+      WHERE order_number = ?;
+      `,
+      [orderNumber]
+    );
 
-  await appDataSource.query(
-    `DELETE FROM carts
-    WHERE user_id = ?;
-    `,
-    [userId]
-  );
+    await queryRunner.query(
+      `INSERT INTO order_products (
+        plant_id,
+        plant_quantity,
+        pot_id,
+        pot_quantity,
+        nutrient_id,
+        nutrient_quantity,
+        order_id
+      ) VALUES (?, ?, ?, ?, ?, ?, ?);
+      `,
+      [
+        plantId,
+        plantQuantity,
+        potId,
+        potQuantity,
+        nutrientId,
+        nutrientQuantity,
+        orderId.id,
+      ]
+    );
+
+    await queryRunner.query(
+      `DELETE FROM carts
+      WHERE user_id = ?;
+      `,
+      [userId]
+    );
+
+    await queryRunner.commitTransaction();
+  } catch (err) {
+    console.log(err);
+    await queryRunner.rollbackTransaction();
+  } finally {
+    await queryRunner.release();
+  }
 };
 
 module.exports = {

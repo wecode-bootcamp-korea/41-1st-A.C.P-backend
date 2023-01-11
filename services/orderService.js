@@ -1,6 +1,5 @@
 const orderDao = require("../models/orderDao");
 const uuid = require("uuid");
-const orderNumber = uuid.v4();
 
 const createOrder = async (
   totalPrice,
@@ -12,6 +11,8 @@ const createOrder = async (
   nutrientId,
   nutrientQuantity
 ) => {
+  const orderNumber = uuid.v4();
+
   return orderDao.createOrder(
     orderNumber,
     totalPrice,
