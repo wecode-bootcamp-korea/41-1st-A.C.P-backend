@@ -1,23 +1,7 @@
 const cartsDao = require("../models/cartsDao");
 
-const getCartList = async (
-  userId,
-  plantId,
-  plantQuantity,
-  potId,
-  potQuantity,
-  nutrientId,
-  nutrientQuantity
-) => {
-  return cartsDao.getCartList(
-    userId,
-    plantId,
-    plantQuantity,
-    potId,
-    potQuantity,
-    nutrientId,
-    nutrientQuantity
-  );
+const getCartList = async (userId) => {
+  return cartsDao.getCartList(userId);
 };
 
 const deleteCart = async (cartId) => {

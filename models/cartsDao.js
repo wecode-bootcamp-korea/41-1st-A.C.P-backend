@@ -1,15 +1,7 @@
 const { appDataSource } = require("./dbconfig");
 
-const getCartList = async (
-  userId,
-  plantId,
-  plantQuantity,
-  potId,
-  potQuantity,
-  nutrientId,
-  nutrientQuantity
-) => {
-  const result = await appDataSource.query(
+const getCartList = async (userId) => {
+  return await appDataSource.query(
     `SELECT
     carts.id AS cart_id,
     JSON_ARRAYAGG(JSON_OBJECT(
@@ -40,34 +32,22 @@ const getCartList = async (
     JOIN pots ON pots.id = pots_pot_colors.pot_id
     JOIN nutrients ON nutrients.id = carts.nutrient_id
     WHERE
-    user_id = 1 
+    user_id = ?
     GROUP BY
       carts.id;
         `,
-    [
-      userId,
-      plantId,
-      plantQuantity,
-      potId,
-      potQuantity,
-      nutrientId,
-      nutrientQuantity,
-    ]
+    [userId]
   );
-  console.log(result);
-  return result;
 };
 
-const deleteCart = async (cartId) => {
+const deleteCart = async (cartIds) => {
   await appDataSource.query(
     `DELETE FROM
             carts
-        WHERE
-            carts.id = ?;
+        WHERE id IN (?)
         `,
-    [cartId]
+    [cartIds]
   );
-  throw new Error(401, "DELETE_NOT_FUNCTION");
 };
 
 module.exports = {
