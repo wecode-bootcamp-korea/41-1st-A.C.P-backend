@@ -25,7 +25,7 @@ const queryBuilder = (type, offset, limit) => {
 const nutrientsListFilterData = async (type, offset, limit) => {
   const andquery = await queryBuilder(type, offset, limit);
 
-  const nutrientsList = await queryRunner.query(
+  const nutrientsList = await appDataSource.query(
     `SELECT
         nutrients.id as nutrient_id,
         nutrients.name as nutrient_name,
@@ -37,7 +37,7 @@ const nutrientsListFilterData = async (type, offset, limit) => {
     `
   );
 
-  const [totalCount] = await queryRunner.query(
+  const [totalCount] = await appDataSource.query(
     `SELECT FOUND_ROWS() AS totalCount`
   );
 
