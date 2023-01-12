@@ -1,7 +1,8 @@
 -- migrate:up
 CREATE TABLE pots (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(200) NOT NULL,
+  name VARCHAR(200) NOT NULL, 
+  description VARCHAR(1000) NOT NULL,
   price DECIMAL(10,3) NOT NULL,
   pot_size_id INT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
