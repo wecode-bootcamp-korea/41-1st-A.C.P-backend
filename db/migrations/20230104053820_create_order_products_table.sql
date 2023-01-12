@@ -14,7 +14,6 @@ CREATE TABLE order_products (
   CONSTRAINT order_products_plant_id FOREIGN KEY (plant_id) REFERENCES plants(id),
   CONSTRAINT order_products_pots_pot_color_id FOREIGN KEY (pots_pot_color_id) REFERENCES pots_pot_colors(id),
   CONSTRAINT order_products_nutrient_id FOREIGN KEY (nutrient_id) REFERENCES nutrients(id)
-  
 );
 -- migrate:down
 DROP TABLE order_products;
