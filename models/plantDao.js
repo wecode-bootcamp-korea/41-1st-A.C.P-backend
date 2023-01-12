@@ -155,13 +155,13 @@ const plantsList = async (sort, offset, limit) => {
     JOIN plant_images ON plants.id = plant_images.plant_id
     GROUP BY plants.id
     ORDER BY ${sortMethod[sort]}
-    LIMIT ${limit} OFFSET ${offset}`
+    LIMIT ${limit} OFFSET ${offset};`
   );
 
-  const [totalCount] = await appDataSource.query(
-    `SELECT FOUND_ROWS() AS totalCount`
-  );
-  return { plantsList, totalCount };
+  // const [totalCount] = await appDataSource.query(
+  //   `SELECT FOUND_ROWS() AS totalCount;`
+  // );
+  return { plantsList };
 };
 
 module.exports = {
