@@ -29,7 +29,7 @@ const signIn = async (email, password) => {
 
   if (!match) throw new Error("USERNAME_OR_PASSWORD_IS_INVALID");
 
-  return jwt.sign({ userId: user.id }, process.env.secretKey);
+  return jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 };
 
 module.exports = {

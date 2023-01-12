@@ -16,7 +16,8 @@ const createUser = async (email, password, name, phoneNumber) => {
 const getUserById = async (userId) => {
   const [result] = await appDataSource.query(
     `SELECT
-          id AS userId
+          id userId,
+          point
         FROM
           users
         WHERE
