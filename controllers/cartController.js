@@ -3,7 +3,7 @@ const cartService = require("../services/cartsService");
 
 const getCartList = catchAsync(async (req, res) => {
   const list = await cartService.getCartList(req.userId);
-
+  console.log(list);
   res.status(201).json({ data: list });
 });
 

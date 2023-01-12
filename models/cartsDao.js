@@ -40,7 +40,7 @@ const getCartList = async (
     JOIN pots ON pots.id = pots_pot_colors.pot_id
     JOIN nutrients ON nutrients.id = carts.nutrient_id
     WHERE
-    user_id = ?
+    user_id = 1 
     GROUP BY
       carts.id;
         `,
@@ -54,6 +54,7 @@ const getCartList = async (
       nutrientQuantity,
     ]
   );
+  console.log(result);
   return result;
 };
 
