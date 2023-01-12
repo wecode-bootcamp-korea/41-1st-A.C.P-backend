@@ -1,5 +1,5 @@
 const { catchAsync } = require("../utils/error");
-const cartService = require("../services/cartsService");
+const cartService = require("../services/cartService");
 
 const getCartList = catchAsync(async (req, res) => {
   const list = await cartService.getCartList(req.userId);

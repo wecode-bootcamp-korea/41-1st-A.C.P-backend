@@ -140,7 +140,7 @@ const plantsList = async (sort, offset, limit) => {
     nameDESC: "plants.name DESC",
   });
 
-  const plantsList = await queryRunner.query(
+  const plantsList = await appDataSource.query(
     `SELECT SQL_CALC_FOUND_ROWS
       plants.id AS plant_id,
       plants.name AS plant_name,
@@ -158,7 +158,7 @@ const plantsList = async (sort, offset, limit) => {
     LIMIT ${limit} OFFSET ${offset}`
   );
 
-  const [totalCount] = await queryRunner.query(
+  const [totalCount] = await appDataSource.query(
     `SELECT FOUND_ROWS() AS totalCount`
   );
   return { plantsList, totalCount };
