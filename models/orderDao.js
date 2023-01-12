@@ -22,7 +22,7 @@ const createOrder = async (
   await queryRunner.startTransaction();
 
   try {
-    await queryRunner.query(
+    const createOrder = await queryRunner.query(
       `INSERT INTO orders (
         order_number,
         total_price,
@@ -31,16 +31,6 @@ const createOrder = async (
       ) VALUES (?, ?, ?, ?);
      `,
       [orderNumber, totalPrice, userId, ORDER_STATUS.상품준비중]
-    );
-
-    const [orderId] = await queryRunner.query(
-      `SELECT
-      orders.id,
-      orders.total_price
-      FROM orders 
-      WHERE order_number = ?;
-      `,
-      [orderNumber]
     );
 
     await queryRunner.query(
@@ -61,7 +51,7 @@ const createOrder = async (
         potQuantity,
         nutrientId,
         nutrientQuantity,
-        orderId.id,
+        createOrder.insertId,
       ]
     );
 
@@ -76,15 +66,15 @@ const createOrder = async (
       `UPDATE
       users
       SET point = point - ?
-      WHERE id = ?
+      WHERE id = ?;
       `,
       [totalPrice, userId]
     );
 
     await queryRunner.commitTransaction();
   } catch (err) {
-    console.log(err);
     await queryRunner.rollbackTransaction();
+    throw new Error("FAILED_TO_CREATE_ORDER");
   } finally {
     await queryRunner.release();
   }
