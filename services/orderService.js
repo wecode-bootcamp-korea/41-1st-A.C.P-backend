@@ -1,7 +1,6 @@
 const orderDao = require("../models/orderDao");
 
 const getOrderList = async (userId) => {
-  console.log("orderService, userId:", userId);
   return orderDao.getOrderList(userId);
 };
 

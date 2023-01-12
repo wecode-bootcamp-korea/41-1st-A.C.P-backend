@@ -14,9 +14,8 @@ const queryBuilder = (ordersId) => {
 
 const orderListFilterData = async (ordersId) => {
   const clause = await queryBuilder(ordersId);
-  console.log("?????", clause);
 
-  const oderData = await appDataSource.query(
+  return appDataSource.query(
     `SELECT
             plants.name AS plants_name,
             plants.price AS plants_price,
@@ -41,8 +40,6 @@ const orderListFilterData = async (ordersId) => {
         ${clause}
       `
   );
-  console.log(oderData);
-  return oderData;
 };
 
 const getOrderList = async (userId) => {
@@ -56,16 +53,8 @@ const getOrderList = async (userId) => {
         `,
     [userId]
   );
-  console.log("orderDao, orderId:", orderId);
   return orderId;
 };
-
-async function a() {
-  return appDataSource.query(`
-        SELECT * FROM order_products
-        WHERE id = 3;
-    `);
-}
 
 module.exports = {
   getOrderList,
