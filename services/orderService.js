@@ -1,7 +1,14 @@
 const uuid = require("uuid");
-
 const orderDao = require("../models/orderDao");
 const userDao = require("../models/userDao");
+
+const getOrderList = async (userId) => {
+  return orderDao.getOrderList(userId);
+};
+
+const orderListFilterData = async (orderId) => {
+  return orderDao.orderListFilterData(orderId);
+};
 
 const createOrder = async (
   totalPrice,
@@ -34,4 +41,6 @@ const createOrder = async (
 
 module.exports = {
   createOrder,
+  getOrderList,
+  orderListFilterData,
 };
