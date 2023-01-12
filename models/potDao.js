@@ -32,13 +32,8 @@ const queryBuilder = (size, color, offset, limit) => {
 const potsListFilterData = async (size, color, offset, limit) => {
   const andquery = await queryBuilder(size, color, offset, limit);
 
-  const queryRunner = appDataSource.createQueryRunner();
-  await queryRunner.connect();
-  await queryRunner.startTransaction();
-
-  try {
-    const potsList = await queryRunner.query(
-      `SELECT
+  const potsList = await appDataSource.query(
+    `SELECT
         pots.id as pot_id,
         pot_images.img_url,
         pots.name as pot_name,
@@ -51,19 +46,13 @@ const potsListFilterData = async (size, color, offset, limit) => {
         ${andquery}
       ;
       `
-    );
+  );
 
-    const [totalCount] = await queryRunner.query(
-      `SELECT FOUND_ROWS() AS totalCount`
-    );
+  const [totalCount] = await appDataSource.query(
+    `SELECT FOUND_ROWS() AS totalCount`
+  );
 
-    return { potsList, totalCount };
-  } catch (err) {
-    console.log(err);
-    await queryRunner.rollbackTransaction();
-  } finally {
-    await queryRunner.release();
-  }
+  return { potsList, totalCount };
 };
 
 module.exports = {
