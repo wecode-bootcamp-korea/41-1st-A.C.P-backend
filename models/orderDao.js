@@ -13,6 +13,7 @@ const queryBuilder = (ordersId) => {
 };
 
 const getOrderList = async (userId) => {
+  console.log(userId);
   const [orderId] = await appDataSource.query(
     `SELECT
             orders.id
@@ -63,7 +64,7 @@ const createOrder = async (
       `INSERT INTO order_products (
         plant_id,
         plant_quantity,
-        pot_id,
+        pots_pot_color_id,
         pot_quantity,
         nutrient_id,
         nutrient_quantity,

@@ -20,7 +20,8 @@ const createOrder = async (
   nutrientId,
   nutrientQuantity
 ) => {
-  const userPoint = await userDao.getUserById(userId).point;
+  const user = await userDao.getUserById(userId);
+  const userPoint = user.point;
 
   if (userPoint < totalPrice) throw new Error("NOT_ENOUGH_POINT");
 

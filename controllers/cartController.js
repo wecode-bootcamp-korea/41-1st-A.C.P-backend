@@ -2,7 +2,8 @@ const { catchAsync } = require("../utils/error");
 const cartService = require("../services/cartService");
 
 const getCartList = catchAsync(async (req, res) => {
-  const list = await cartService.getCartList(req.userId);
+  console.log(req.user.userId);
+  const list = await cartService.getCartList(req.user.userId);
   res.status(200).json({ data: list });
 });
 

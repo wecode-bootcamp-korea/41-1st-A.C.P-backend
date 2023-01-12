@@ -21,11 +21,11 @@ const createCart = async (
 };
 
 const getCartList = async (userId) => {
-  return cartsDao.getCartList(userId);
+  return cartDao.getCartList(userId);
 };
 
 const deleteCart = async (cartId) => {
-  return cartsDao.deleteCart(cartId);
+  return cartDao.deleteCart(cartId);
 };
 
 module.exports = {
