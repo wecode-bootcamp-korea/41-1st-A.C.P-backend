@@ -15,7 +15,7 @@ CREATE TABLE carts (
   CONSTRAINT carts_pots_pot_color_id FOREIGN KEY (pots_pot_color_id) REFERENCES pots_pot_colors(id),
   CONSTRAINT carts_nutrient_id FOREIGN KEY (nutrient_id) REFERENCES nutrients(id),
   CONSTRAINT carts_plant_id_ukey UNIQUE (plant_id),
-  CONSTRAINT carts_pot_id_ukey UNIQUE (pot_id),
+  CONSTRAINT carts_pots_pot_color_id_ukey UNIQUE (pots_pot_color_id),
   CONSTRAINT carts_nutrient_id_ukey UNIQUE (nutrient_id)
 );
 -- migrate:down
