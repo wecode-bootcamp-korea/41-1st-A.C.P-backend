@@ -1,5 +1,4 @@
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
@@ -21,7 +20,6 @@ app.use(globalErrorHandler);
 app.get("/ping", (req, res) => {
   return res.status(200).json({ message: "pong" });
 });
-
 const start = async () => {
   try {
     await appDataSource
@@ -32,7 +30,6 @@ const start = async () => {
       .catch((err) => {
         console.error("Error occurred during Data Source initialization", err);
       });
-
     app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
   } catch (err) {
     appDataSource.destroy();
