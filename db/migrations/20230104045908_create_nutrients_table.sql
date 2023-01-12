@@ -2,6 +2,7 @@
 CREATE TABLE nutrients (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(200) NOT NULL,
+  price DECIMAL(10,3) NOT NULL,
   nutrient_type_id INT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   CONSTRAINT nutrients_name_ukey UNIQUE (name),
