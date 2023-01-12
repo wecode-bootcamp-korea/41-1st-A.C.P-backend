@@ -68,13 +68,8 @@ const plantListFilterData = async (
     limit
   );
 
-  const queryRunner = appDataSource.createQueryRunner();
-  await queryRunner.connect();
-  await queryRunner.startTransaction();
-
-  try {
-    const plantsList = await queryRunner.query(
-      `SELECT
+  const plantsList = await queryRunner.query(
+    `SELECT
         plants.id as plant_id,
         plants.name as plant_name,
         plants.description as plant_description,
@@ -95,20 +90,14 @@ const plantListFilterData = async (
         ${andquery}
       ;
       `,
-      [limit, offset]
-    );
+    [limit, offset]
+  );
 
-    const [totalCount] = await queryRunner.query(
-      `SELECT FOUND_ROWS() AS totalCount`
-    );
+  const [totalCount] = await queryRunner.query(
+    `SELECT FOUND_ROWS() AS totalCount`
+  );
 
-    return { plantsList, totalCount };
-  } catch (err) {
-    console.log(err);
-    await queryRunner.rollbackTransaction();
-  } finally {
-    await queryRunner.release();
-  }
+  return { plantsList, totalCount };
 };
 
 const getPlantInfo = async (plantsId) => {
