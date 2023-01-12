@@ -56,7 +56,7 @@ const potsListFilterData = async (size, color, offset, limit) => {
 };
 
 const getPotInfo = async (potId) => {
-  const result = await appDataSource.query(
+  const [result] = await appDataSource.query(
     `SELECT
         pots.name,
         pot_sizes.name AS size,

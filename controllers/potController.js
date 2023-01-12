@@ -6,7 +6,7 @@ const getPotInfo = catchAsync(async (req, res) => {
   if (!potId) throw new Error("KEY_ERROR");
 
   const getPotInfo = await potService.getPotInfo(potId);
-  return res.status(201).json({ data: getPotInfo });
+  return res.status(201).json(getPotInfo);
 });
 
 const potsListFilterData = catchAsync(async (req, res) => {
