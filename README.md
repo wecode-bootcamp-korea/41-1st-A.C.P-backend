@@ -138,7 +138,7 @@
 
 ## API Documentstion
 
-<a href="https://documenter.getpostman.com/view/19385058/UVeDt7zS#intro">Postman API</a>
+<a href="https://documenter.getpostman.com/view/25063140/2s8ZDSckAU">Postman API</a>
 <br />
 <br />
 
