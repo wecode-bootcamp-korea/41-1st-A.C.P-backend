@@ -113,7 +113,7 @@ const getPlantInfo = async (plantsId) => {
       positions.name as position,
       moods.name as mood,
       difficulties.name as difficulty,         
-      cares.name as care
+      cares.name as care,
       JSON_ARRAYAGG(JSON_OBJECT("img_id",plant_images.id,"img_url",plant_images.img_url))as images
     FROM plants
     JOIN species ON plants.species_id = species.id
@@ -145,7 +145,7 @@ const plantsList = async (sort, offset, limit) => {
     `SELECT
       plants.id AS plant_id,
       plants.name AS plant_name,
-      plants.price as plant_price
+      plants.price as plant_price,
       JSON_ARRAYAGG(
         JSON_OBJECT(
           'url', plant_images.img_url
