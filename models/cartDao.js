@@ -53,25 +53,25 @@ const getCartList = async (userId) => {
     `SELECT
     carts.id AS cart_id,
     JSON_ARRAYAGG(JSON_OBJECT(
-      "plantId", carts.plant_id,
+      "id", carts.plant_id,
       "name", plants.name,
       "description", plants.description,
       "price",plants.price, 
-      "plant_quantity", plant_quantity
+      "quantity", plant_quantity
       )) AS plants,
 
     JSON_ARRAYAGG(JSON_OBJECT(
-      "pots_id", carts.pots_pot_color_id,
+      "id", carts.pots_pot_color_id,
       "name", pots.name,
       "price",pots.price,
-      "pot_quantity", carts.pot_quantity
+      "quantity", carts.pot_quantity
      )) AS pots,
 
     JSON_ARRAYAGG(JSON_OBJECT(
-      "nutrient_id", carts.nutrient_id, 
+      "id", carts.nutrient_id, 
       "name", nutrients.name,
       "price",nutrients.price, 
-      "nutrient_quantity", carts.nutrient_quantity
+      "quantity", carts.nutrient_quantity
       )) AS nutrients
     FROM
         carts 
