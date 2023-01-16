@@ -20,6 +20,16 @@ const createCart = async (
   );
 };
 
+const getCartList = async (userId) => {
+  return cartDao.getCartList(userId);
+};
+
+const deleteCart = async (cartId) => {
+  return cartDao.deleteCart(cartId);
+};
+
 module.exports = {
   createCart,
+  getCartList,
+  deleteCart,
 };

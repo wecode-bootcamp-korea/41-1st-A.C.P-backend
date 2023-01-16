@@ -34,16 +34,15 @@ const queryBuilder = (
       andclause + `AND plants.difficulty_id IN (${difficulties.toString()})\n`;
   }
 
+  andclause = andclause + `GROUP BY plants.id\n`;
+  andclause = andclause + `ORDER BY plants.id\n`;
+
   if (limit) {
-    andclause = andclause + `LIMIT ${limit}\n`;
+    andclause = andclause + `LIMIT ${limit} `;
   }
 
   if (offset) {
     andclause = andclause + `OFFSET ${offset}\n`;
-  }
-
-  if (!sizes && !positions && !moods && !difficulties && !limit && !offset) {
-    andclause += ";";
   }
 
   return andclause;
@@ -68,6 +67,8 @@ const plantListFilterData = async (
     limit
   );
 
+  console.log(offset, limit);
+  console.log(moods);
   const plantsList = await appDataSource.query(
     `SELECT
         plants.id as plant_id,
@@ -87,7 +88,7 @@ const plantListFilterData = async (
       JOIN moods ON plants.mood_id = moods.id
       JOIN difficulties ON plants.difficulty_id = difficulties.id
       JOIN cares ON plants.care_id = cares.id
-        ${andquery}
+      ${andquery}
       ;
       `,
     [limit, offset]
@@ -140,8 +141,8 @@ const plantsList = async (sort, offset, limit) => {
     nameDESC: "plants.name DESC",
   });
 
-  const plantsList = await queryRunner.query(
-    `SELECT SQL_CALC_FOUND_ROWS
+  const plantsList = await appDataSource.query(
+    `SELECT
       plants.id AS plant_id,
       plants.name AS plant_name,
       plants.price as plant_price,
@@ -155,11 +156,11 @@ const plantsList = async (sort, offset, limit) => {
     JOIN plant_images ON plants.id = plant_images.plant_id
     GROUP BY plants.id
     ORDER BY ${sortMethod[sort]}
-    LIMIT ${limit} OFFSET ${offset}`
+    LIMIT ${limit} OFFSET ${offset};`
   );
 
-  const [totalCount] = await queryRunner.query(
-    `SELECT FOUND_ROWS() AS totalCount`
+  const [totalCount] = await appDataSource.query(
+    `SELECT FOUND_ROWS() AS totalCount;`
   );
   return { plantsList, totalCount };
 };
