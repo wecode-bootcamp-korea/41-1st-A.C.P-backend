@@ -34,16 +34,15 @@ const queryBuilder = (
       andclause + `AND plants.difficulty_id IN (${difficulties.toString()})\n`;
   }
 
+  andclause = andclause + `GROUP BY plants.id\n`;
+  andclause = andclause + `ORDER BY plants.id\n`;
+
   if (limit) {
-    andclause = andclause + `LIMIT ${limit}\n`;
+    andclause = andclause + `LIMIT ${limit} `;
   }
 
   if (offset) {
     andclause = andclause + `OFFSET ${offset}\n`;
-  }
-
-  if (!sizes && !positions && !moods && !difficulties && !limit && !offset) {
-    andclause += ";";
   }
 
   return andclause;
@@ -68,6 +67,8 @@ const plantListFilterData = async (
     limit
   );
 
+  console.log(offset, limit);
+  console.log(moods);
   const plantsList = await appDataSource.query(
     `SELECT
         plants.id as plant_id,
@@ -87,7 +88,7 @@ const plantListFilterData = async (
       JOIN moods ON plants.mood_id = moods.id
       JOIN difficulties ON plants.difficulty_id = difficulties.id
       JOIN cares ON plants.care_id = cares.id
-        ${andquery}
+      ${andquery}
       ;
       `,
     [limit, offset]
@@ -112,7 +113,7 @@ const getPlantInfo = async (plantsId) => {
       positions.name as position,
       moods.name as mood,
       difficulties.name as difficulty,         
-      cares.name as care,
+      cares.name as care
       JSON_ARRAYAGG(JSON_OBJECT("img_id",plant_images.id,"img_url",plant_images.img_url))as images
     FROM plants
     JOIN species ON plants.species_id = species.id
@@ -141,10 +142,10 @@ const plantsList = async (sort, offset, limit) => {
   });
 
   const plantsList = await appDataSource.query(
-    `SELECT SQL_CALC_FOUND_ROWS
+    `SELECT
       plants.id AS plant_id,
       plants.name AS plant_name,
-      plants.price as plant_price,
+      plants.price as plant_price
       JSON_ARRAYAGG(
         JSON_OBJECT(
           'url', plant_images.img_url
@@ -158,10 +159,10 @@ const plantsList = async (sort, offset, limit) => {
     LIMIT ${limit} OFFSET ${offset};`
   );
 
-  // const [totalCount] = await appDataSource.query(
-  //   `SELECT FOUND_ROWS() AS totalCount;`
-  // );
-  return { plantsList };
+  const [totalCount] = await appDataSource.query(
+    `SELECT FOUND_ROWS() AS totalCount;`
+  );
+  return { plantsList, totalCount };
 };
 
 module.exports = {

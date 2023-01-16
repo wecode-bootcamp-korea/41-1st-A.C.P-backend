@@ -4,7 +4,7 @@ const potController = require("../controllers/potController");
 const router = express.Router();
 
 router.get("", potController.potsListFilterData);
-router.post("/:potId", potController.getPotInfo);
+router.get("/:potId", potController.getPotInfo);
 
 module.exports = {
   router,
