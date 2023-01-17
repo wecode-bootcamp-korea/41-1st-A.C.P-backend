@@ -165,8 +165,28 @@ const plantsList = async (sort, offset, limit) => {
   return { plantsList, totalCount };
 };
 
+const plantDataSearching = async (content) => {
+  return await appDataSource.query(
+    `
+    SELECT
+      plants.id,
+      plants.name,
+      plants.price,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+          'url', plant_images.img_url
+        )
+      ) as plant_img
+    FROM plants
+    JOIN plant_images ON plants.id = plant_images.plant_id
+    WHERE plants.name LIKE '%${content}%'
+    GROUP BY plants.id;
+    `
+  );
+};
 module.exports = {
   getPlantInfo,
   plantsList,
   plantListFilterData,
+  plantDataSearching,
 };

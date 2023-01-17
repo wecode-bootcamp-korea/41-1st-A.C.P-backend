@@ -50,9 +50,18 @@ const listfilterData = catchAsync(async (req, res) => {
   return res.status(200).json(data);
 });
 
+const plantDataSearching = catchAsync(async (req, res) => {
+  const { content } = req.query;
+
+  const data = await plantService.plantDataSearching(content);
+
+  return res.status(200).json(data);
+});
+
 module.exports = {
   getPlantInfo,
   plantsList,
   plantListFilterData,
   listfilterData,
+  plantDataSearching,
 };

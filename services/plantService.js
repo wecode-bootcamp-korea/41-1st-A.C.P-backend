@@ -28,8 +28,13 @@ const plantListFilterData = async (
   );
 };
 
+const plantDataSearching = async (content) => {
+  return plantDao.plantDataSearching(content);
+};
+
 module.exports = {
   getPlantInfo,
   plantsList,
   plantListFilterData,
+  plantDataSearching,
 };
