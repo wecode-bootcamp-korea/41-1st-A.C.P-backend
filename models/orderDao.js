@@ -1,6 +1,5 @@
 const { appDataSource } = require("./dbconfig");
 const queryBuilder = (ordersId) => {
-  console.log(ordersId, 33333333)
   let clause = "WHERE ";
 
   if (ordersId) {
@@ -9,12 +8,11 @@ const queryBuilder = (ordersId) => {
   if (!ordersId) {
     clause = ";";
   }
-  console.log(clause,"-p-p-p-p-p-p")
   return clause;
 };
 
 const getOrderList = async (userId) => {
-  console.log(userId, "너는 나오냐?")
+
   const orderId = await appDataSource.query(
     `SELECT
             orders.id
@@ -27,7 +25,7 @@ const getOrderList = async (userId) => {
         `,
     [userId]
   );
-  console.log(orderId, 111111111)
+  
   return orderId;
 };
 
@@ -112,7 +110,7 @@ const createOrder = async (
 };
 
 const orderListFilterData = async (ordersId) => {
-  console.log(ordersId,"너냐?")
+
   const clause = await queryBuilder(ordersId);
   return appDataSource.query(
     `SELECT
