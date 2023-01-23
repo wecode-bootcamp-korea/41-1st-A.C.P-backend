@@ -4,10 +4,10 @@ const orderService = require("../services/orderService");
 const orderListFilterData = catchAsync(async (req, res) => {
   const userId = req.user.userId;
   const ordersId = await orderService.getOrderList(userId);
+  console.log(userId,"!!!!!!!!!!!!")
   console.log(ordersId, 2222222)
-  console.log(ordersId.id)
+  console.log(ordersId.id, "???????")
   const orderListFilterData = await orderService.orderListFilterData(
-    ordersId.id
   );
   res.status(200).json(orderListFilterData);
 });

@@ -9,16 +9,19 @@ const queryBuilder = (ordersId) => {
   if (!ordersId) {
     clause = ";";
   }
-  console.log(clause)
+  console.log(clause,"-p-p-p-p-p-p")
   return clause;
 };
 
 const getOrderList = async (userId) => {
+  console.log(userId, "너는 나오냐?")
   const orderId = await appDataSource.query(
     `SELECT
             orders.id
         FROM
             orders
+        JOIN users ON orders.user_id = users.id
+        JOIN order_products ON order_products.order_id = orders.id
         WHERE
             orders.user_id = ?;
         `,
@@ -109,11 +112,11 @@ const createOrder = async (
 };
 
 const orderListFilterData = async (ordersId) => {
-  console.log(ordersId)
+  console.log(ordersId,"너냐?")
   const clause = await queryBuilder(ordersId);
   return appDataSource.query(
     `SELECT
-              orders.id AS order_number,
+              orders.id AS order_id,
               plants.name AS plants_name,
               plants.price AS plants_price,
               sizes.name AS plant_size,
