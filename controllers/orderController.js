@@ -3,12 +3,12 @@ const orderService = require("../services/orderService");
 
 const orderListFilterData = catchAsync(async (req, res) => {
   const userId = req.user.userId;
-
-  const orderId = await orderService.getOrderList(userId);
-
-  const orderListFilterData = await orderService.orderListFilterData(
-    orderId.id
-  );
+  const [ordersId] = await orderService.getOrderList(userId);
+  
+  if( ordersId === undefined){
+    throw new Error("CANNOT_FIND_ORDER");
+  }
+  const orderListFilterData = await orderService.orderListFilterData(ordersId.id);
   res.status(200).json(orderListFilterData);
 });
 

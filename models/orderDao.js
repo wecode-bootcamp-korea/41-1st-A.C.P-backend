@@ -8,22 +8,24 @@ const queryBuilder = (ordersId) => {
   if (!ordersId) {
     clause = ";";
   }
-
   return clause;
 };
 
 const getOrderList = async (userId) => {
-  console.log(userId);
-  const [orderId] = await appDataSource.query(
+
+  const orderId = await appDataSource.query(
     `SELECT
             orders.id
         FROM
             orders
+        JOIN users ON orders.user_id = users.id
+        JOIN order_products ON order_products.order_id = orders.id
         WHERE
             orders.user_id = ?;
         `,
     [userId]
   );
+  
   return orderId;
 };
 
@@ -108,10 +110,11 @@ const createOrder = async (
 };
 
 const orderListFilterData = async (ordersId) => {
-  const clause = await queryBuilder(ordersId);
 
+  const clause = await queryBuilder(ordersId);
   return appDataSource.query(
     `SELECT
+              orders.id AS order_id,
               plants.name AS plants_name,
               plants.price AS plants_price,
               sizes.name AS plant_size,
@@ -124,14 +127,15 @@ const orderListFilterData = async (ordersId) => {
               nutrient_types.name AS nutrient_type
           FROM
               order_products
-          JOIN plants ON order_products.plant_id = plants.id
-          JOIN sizes ON plants.size_id = sizes.id
-          JOIN species ON plants.species_id = species.id
-          JOIN pots_pot_colors ON order_products.pots_pot_color_id = pots_pot_colors.id
-          JOIN pots ON pots_pot_colors.pot_id = pots.id
-          JOIN pot_sizes ON pots.pot_size_id = pot_sizes.id
-          JOIN nutrients ON order_products.nutrient_id = nutrients.id
-          JOIN nutrient_types ON nutrients.nutrient_type_id = nutrient_types.id
+          LEFT JOIN orders ON order_products.order_id = orders.id
+          LEFT JOIN plants ON order_products.plant_id = plants.id
+          LEFT JOIN sizes ON plants.size_id = sizes.id
+          LEFT JOIN species ON plants.species_id = species.id
+          LEFT JOIN pots_pot_colors ON order_products.pots_pot_color_id = pots_pot_colors.id
+          LEFT JOIN pots ON pots_pot_colors.pot_id = pots.id
+          LEFT JOIN pot_sizes ON pots.pot_size_id = pot_sizes.id
+          LEFT JOIN nutrients ON order_products.nutrient_id = nutrients.id
+          LEFT JOIN nutrient_types ON nutrients.nutrient_type_id = nutrient_types.id
           ${clause}
         `
   );
