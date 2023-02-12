@@ -1,3 +1,5 @@
+![plait 이미지](https://user-images.githubusercontent.com/119113904/218298933-c4317948-c204-47e5-9812-6c5cb1c8dc23.png)
+
 # 41-1st-A.C.P-backend
 
 # Plait 1차 프로젝트 (이솝 사이트를 디자인을 기반으로 리프로덕트)🥾
@@ -52,7 +54,7 @@
 ## 클론 영상
 
 
-<a href="">Demo Video Link</a>
+<a href="https://www.youtube.com/watch?v=QKTpoahg158">Demo Video Link</a>
 
 
 
